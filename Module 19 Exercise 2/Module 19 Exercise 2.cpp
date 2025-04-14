@@ -3,6 +3,12 @@
 
 #include <iostream>
 #include <string>
+#include <conio.h>
+
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
+#define KEY_ESC 27
+
 using namespace std;
 
 class Page {
@@ -91,26 +97,31 @@ int main() {
     char choice;
     do {
         cout << "\nChoose an option:\n";
-        cout << "[n] Next Page\n";
-        cout << "[p] Previous Page\n";
-        cout << "[q] Quit\n";
+        cout << "[->] Next Page\n";
+        cout << "[<-] Previous Page\n";
+        cout << "[esc] Quit\n";
         cout << "Your choice: ";
-        cin >> choice;
+        choice = _getch();
 
-        switch (choice) {
-        case 'n':
-            myBook.next_page();
-            break;
-        case 'p':
-            myBook.prev_page();
-            break;
-        case 'q':
-            cout << "Exiting the book reader. Goodbye!\n";
-            break;
-        default:
-            cout << "Invalid choice. Try again.\n";
+        if (choice == 224) { // Extended code
+            choice = _getch();
+            switch (choice) {
+            case KEY_RIGHT:
+                myBook.next_page();
+                choice = 0;
+                break;
+            case KEY_LEFT:
+                myBook.prev_page();
+                break;
+            case KEY_ESC:
+                cout << "Exiting the book reader. Goodbye!\n";
+                break;
+            default:
+                cout << "Invalid choice. Try again.\n";
+            }
         }
-    } while (choice != 'q');
+
+    } while (choice != KEY_ESC);
 
     return 0;
 }
