@@ -94,7 +94,7 @@ int main() {
     cout << "Welcome to the Book Reader!\n";
     myBook.show_current_page();
 
-    char choice;
+    int choice;
     do {
         cout << "\nChoose an option:\n";
         cout << "[->] Next Page\n";
