@@ -3,85 +3,9 @@
 // - Requests the user to enter data to populate a singly linked list;
 // - Create the list from the user - provided data;
 // - Displays the list to the user.
-//
-/*
 
 #include <iostream> // For cout, cin, endl, getline
 #include <string>   // For string
-#include <limits>   // For numeric_limits (used in cin.ignore)
-using namespace std;
-
-class Node {
-public:
-    string data;
-    Node* next;
-    Node(string d) {
-        data = d;
-        next = NULL;
-    }
-};
-
-class LinkedList {
-public:
-    Node* head;
-
-    LinkedList() {
-        head = NULL;
-    }
-
-    void append_node(string d) {
-        Node* new_node = new Node(d);
-        if (head == NULL) {
-            head = new_node;
-        }
-        else {
-            Node* temp = head;
-            while (temp->next != NULL)
-                temp = temp->next;
-            temp->next = new_node;
-        }
-    }
-
-    void display() {
-        if (head == NULL)
-            cout << "List is empty!" << endl;
-        else {
-            cout << "Linked List Contents:" << endl;
-            Node* temp = head;
-            while (temp != NULL) {
-                cout << temp->data << "";
-                cout << " -> "; // Add arrow for better visualization
-                temp = temp->next;
-            }
-            cout << endl;
-        }
-    }
-};
-
-int main() {
-    LinkedList my_list;
-    int n;
-    string input;
-
-    cout << "How many elements do you want to add to the linked list? ";
-    cin >> n;
-    cin.ignore(); // To consume the newline after entering the number
-
-    for (int i = 0; i < n; i++) {
-        cout << "Enter data for node " << i + 1 << ": ";
-        getline(cin, input);
-        my_list.append_node(input);
-    }
-
-    cout << endl;
-    my_list.display();
-
-    return 0;
-}*/
-
-#include <iostream> // For cout, cin, endl, getline
-#include <string>   // For string
-#include <limits>   // For numeric_limits (used in cin.ignore)
 using namespace std;
 
 // Represents a single node in the linked list
@@ -172,9 +96,6 @@ int main() {
     }
 
     my_list.display(); // Display the list contents
-
-    // Destructor (~LinkedList) will automatically be called here
-    // when my_list goes out of scope, cleaning up the memory.
 
     return 0; // Indicate successful execution
 }
