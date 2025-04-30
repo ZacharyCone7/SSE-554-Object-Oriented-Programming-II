@@ -1,89 +1,114 @@
 // Module 19 Exercise 3.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <thread>
+#include <sstream>
+#include <cstdlib> // For srand and rand
+#include <ctime>   // For seeding the random number generator
 
 using namespace std;
 
-// Define the node structure for the circular linked list
-struct Node {
-    string value;  // The value on the wheel (could be a color, category, etc.)
-    Node* next;    // Pointer to the next node
-};
-
-// Class to represent the Circularly Linked List
-class CircularList {
-private:
-    Node* head;    // Head of the list
-
-public:
-    CircularList() : head(nullptr) {}
-
-    // Function to add a node to the list
-    void addNode(const string& value) {
-        Node* newNode = new Node();
-        newNode->value = value;
-
-        if (!head) {
-            head = newNode;
-            newNode->next = head;  // Circular link to itself
-        }
-        else {
-            Node* temp = head;
-            while (temp->next != head) {
-                temp = temp->next;
-            }
-            temp->next = newNode;
-            newNode->next = head;  // Link back to the head
-        }
-    }
-
-    // Function to spin the wheel a random number of times
-    string spinWheel(int spinCount) {
-        if (!head) return "";  // Empty list
-
-        Node* temp = head;
-        // Spin the wheel by moving through the nodes
-        for (int i = 0; i < spinCount; i++) {
-            temp = temp->next;
-        }
-
-        return temp->value;  // Return the value where the wheel stops
-    }
-};
-
-// Function to generate a random speed (spin count)
-int getRandomSpeed(int maxSpeed) {
-    return rand() % maxSpeed + 1;  // Random speed between 1 and maxSpeed
+// Function to clear the screen
+void clearScreen() {
+    cout << "\033[2J\033[1;1H";
 }
 
+// Definition for a Node in the circular linked list
+class Node {
+public:
+    string data;
+    Node* next;
+
+    Node(const string& d) : data(d), next(nullptr) {}
+};
+
+// Circular linked list class
+class CircularLinkedList {
+private:
+    Node* head;
+    Node* tail;
+    Node* curr;
+
+public:
+    CircularLinkedList() : head(nullptr), tail(nullptr), curr(nullptr) {}
+
+    void appendNode(const string& data) {
+        Node* newNode = new Node(data);
+        if (!head) {
+            head = tail = newNode;
+            tail->next = head; // Complete circular link
+            curr = head;       // Set current to the first node
+        }
+        else {
+            tail->next = newNode;
+            tail = newNode;
+            tail->next = head; // Complete circular link
+        }
+    }
+
+    void nextPlayerTurn() {
+        if (!curr) {
+            cout << "No players!" << endl;
+        }
+        else {
+            cout << "\n" << curr->data << "'s turn:\n" << endl;
+            curr = curr->next;
+        }
+    }
+
+    string spinWheel(int spins) {
+        Node* temp = head;
+        while (spins > 0) {
+            cout << "Spinning... Current subject: " << temp->data << endl;
+            temp = temp->next;
+            spins--;
+            this_thread::sleep_for(chrono::milliseconds(200)); // Simulates spinning
+        }
+        return temp->data;
+    }
+};
+
 int main() {
-    srand(time(0));  // Seed the random number generator
+    CircularLinkedList wheel;
+    wheel.appendNode("Math");
+    wheel.appendNode("Science");
+    wheel.appendNode("History");
+    wheel.appendNode("Geography");
+    wheel.appendNode("Pop Culture");
 
-    CircularList wheel;
+    CircularLinkedList players;
+    int numPlayers;
 
-    // Adding five values (e.g., categories/colors)
-    wheel.addNode("History");
-    wheel.addNode("Math");
-    wheel.addNode("Science");
-    wheel.addNode("Art");
-    wheel.addNode("Music");
+    cout << "Enter number of players: ";
+    cin >> numPlayers;
 
-    // Simulate spinning the wheel 5 times
-    for (int i = 0; i < 5; i++) {
-        int speed = getRandomSpeed(20);  // Random speed between 1 and 20
-        cout << "Spin #" << (i + 1) << ": Spinning with a speed of " << speed << "...\n";
-        string result = wheel.spinWheel(speed);  // Spin the wheel
-        cout << "The wheel stopped at: " << result << endl << endl;
+    // Add players to the list
+    for (int i = 1; i <= numPlayers; i++) {
+        players.appendNode("Player " + to_string(i));
+    }
 
-        // Slow down the spin after each round (reduce max speed)
-        if (speed > 1) {
-            speed--;
+    // Initialize random seed
+    srand(time(0));
+    cout << "The categories are: Math, Science, History, Geography, and Pop Culture.\n";
+
+    bool isPlaying = true;
+    while (isPlaying) {
+        players.nextPlayerTurn();
+        cout << "Type \"1\" to spin the wheel to select a category: ";
+        int choice;
+        cin >> choice;
+
+        if (choice == 1) {
+            int initialSpeed = rand() % 30;
+            cout << "Spinning with initial speed of: " << initialSpeed << endl;
+            string result = wheel.spinWheel(initialSpeed);
+            cout << "Final Category is: " << result << endl;
+        }
+        else {
+            cout << "Thanks for playing!" << endl;
+            isPlaying = false;
         }
     }
 
     return 0;
 }
-
