@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <stack>
-#include <vector>g
+#include <vector>
 using namespace std;
 
 int main() {
