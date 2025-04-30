@@ -66,17 +66,9 @@ int main() {
 
     vector<string> path;
     cout << "Path to Exit:\n";
-    A->print_tree(path);
-
-    // Clean up
-    delete A;
-    delete B;
-    delete C;
-    delete D;
-    delete E;
-    delete F;
-    delete Exit;
+    if (!A->print_tree(path)) {
+        cout << "No path to Exit found." << endl;
+    }
 
     return 0;
 }
-
