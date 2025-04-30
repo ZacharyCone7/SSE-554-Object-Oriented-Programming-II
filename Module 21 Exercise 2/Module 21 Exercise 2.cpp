@@ -30,21 +30,21 @@ public:
         root->yes->yes = new Node("Do you have more than 2 years of experience?");
         root->yes->no = new Node("Have you completed an internship?");
 
-        root->yes->yes->yes = new Node("? Application accepted!");
-        root->yes->yes->no = new Node("?? Application under consideration.");
+        root->yes->yes->yes = new Node("Application accepted!");
+        root->yes->yes->no = new Node("Application under consideration.");
 
-        root->yes->no->yes = new Node("?? Application under consideration.");
-        root->yes->no->no = new Node("? Application rejected.");
+        root->yes->no->yes = new Node("Application under consideration.");
+        root->yes->no->no = new Node("Application rejected.");
 
         // Right side (no degree)
         root->no->yes = new Node("Are you willing to relocate?");
         root->no->no = new Node("Are you a team player?");
 
-        root->no->yes->yes = new Node("?? Application under consideration.");
-        root->no->yes->no = new Node("? Application rejected.");
+        root->no->yes->yes = new Node("Application under consideration.");
+        root->no->yes->no = new Node("Application rejected.");
 
-        root->no->no->yes = new Node("? Application accepted!");
-        root->no->no->no = new Node("? Application rejected.");
+        root->no->no->yes = new Node("Application accepted!");
+        root->no->no->no = new Node("Application rejected.");
     }
 
     void start_application(Node* current) {
