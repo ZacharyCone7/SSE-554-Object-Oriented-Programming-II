@@ -71,7 +71,7 @@ int main() {
 
         // Convert response to lowercase to simplify the check
         addAnother = tolower(addAnother);
-
+        system("cls");
     } while (addAnother == 'y'); // Continue loop if user entered 'y' or 'Y'
 
     // --- Final Output ---
@@ -123,7 +123,8 @@ void displayOrderSummary(const std::vector<std::string>& order, double totalCost
 }
 
 void displayGoodbyeMessage() {
-    std::cout << "\nThank you for stopping by the Cone Coffee Corner!\n";
-    std::cout << "Have a great day!\n";
-    std::cout << "===================================\n";
+    std::cout << "=====================================================\n";
+    std::cout << "| Thank you for stopping by the Cone Coffee Corner! |\n";
+    std::cout << "|                 Have a great day!                 |\n";
+    std::cout << "=====================================================\n";
 }
