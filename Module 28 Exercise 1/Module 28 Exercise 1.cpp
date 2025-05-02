@@ -3,12 +3,8 @@
 
 #include <iostream> // For input/output streams (cin, cout)
 #include <vector>   // To store the order items
-#include <string>   // To work with strings (item names, user input)
 #include <map>      // To store the menu (item name -> price)
 #include <iomanip>  // For formatting output (setprecision, fixed)
-#include <limits>   // For numeric_limits (used in input clearing)
-#include <ios>      // For streamsize (used in input clearing)
-#include <cctype>   // For tolower (to handle 'y'/'n' case-insensitively)
 
 // --- Function Prototypes ---
 void displayWelcomeMessage();
@@ -30,9 +26,9 @@ int main() {
     };
 
     std::vector<std::string> currentOrder; // Stores the names of items ordered
-    double totalCost = 0.0;              // Running total
-    int userChoice = 0;                  // Stores the user's menu selection number
-    char addAnother = 'y';               // Controls the ordering loop
+    double totalCost = 0.0;                // Running total
+    int userChoice = 0;                    // Stores the user's menu selection number
+    char addAnother = 'y';                 // Controls the ordering loop
 
     // --- Program Flow ---
     displayWelcomeMessage();
